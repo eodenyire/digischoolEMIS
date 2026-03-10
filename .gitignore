@@ -1,0 +1,42 @@
+# Maven build artifacts
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# Maven wrapper
+.mvn/
+mvn
+mvnw
+mvnw.cmd
+
+# IDE files
+.idea/
+*.iml
+*.iws
+.classpath
+.project
+.settings/
+*.eclipse
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Application uploads and reports
+uploads/
+reports/
+
+# Environment files (sensitive)
+*.env
+.env.local
+application-local.properties
+
+# Test output
+surefire-reports/

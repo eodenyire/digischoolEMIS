@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.digischool.emis.ui.controllers.LoginController"
+            stylesheets="@../css/login.css"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <!-- Background gradient split layout -->
+    <HBox AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+        <!-- Left Panel - Brand/Logo Area -->
+        <VBox styleClass="login-left-panel" alignment="CENTER"
+              prefWidth="400" spacing="20">
+            <padding>
+                <Insets top="40" right="30" bottom="40" left="30"/>
+            </padding>
+
+            <!-- School Logo Placeholder -->
+            <Label styleClass="app-logo-text" text="🏫"/>
+
+            <Label styleClass="app-name" text="DigiSchool EMIS"/>
+
+            <Label styleClass="app-tagline"
+                   text="World-Class School Management System"
+                   wrapText="true" textAlignment="CENTER"/>
+
+            <Separator prefWidth="200"/>
+
+            <Label styleClass="cbc-label"
+                   text="Supporting Kenya CBC&#10;Grade 1 to Grade 13"
+                   wrapText="true" textAlignment="CENTER"/>
+
+            <!-- Feature highlights -->
+            <VBox spacing="10" alignment="CENTER_LEFT" styleClass="features-box">
+                <Label styleClass="feature-item" text="✓  Student Information System"/>
+                <Label styleClass="feature-item" text="✓  CBC Competency Tracking"/>
+                <Label styleClass="feature-item" text="✓  Assessment &amp; Grading"/>
+                <Label styleClass="feature-item" text="✓  Finance &amp; Fee Management"/>
+                <Label styleClass="feature-item" text="✓  20+ Integrated Modules"/>
+            </VBox>
+        </VBox>
+
+        <!-- Right Panel - Login Form -->
+        <VBox styleClass="login-right-panel" alignment="CENTER"
+              prefWidth="400" spacing="15">
+            <padding>
+                <Insets top="50" right="50" bottom="50" left="50"/>
+            </padding>
+
+            <Label styleClass="login-title" text="Welcome Back"/>
+            <Label styleClass="login-subtitle" text="Sign in to your account"/>
+
+            <VBox spacing="5">
+                <Label styleClass="field-label" text="Username or Email"/>
+                <TextField fx:id="usernameField"
+                           styleClass="login-field"
+                           promptText="Enter username or email"
+                           prefWidth="300"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label styleClass="field-label" text="Password"/>
+                <PasswordField fx:id="passwordField"
+                               styleClass="login-field"
+                               promptText="Enter password"
+                               prefWidth="300"/>
+            </VBox>
+
+            <CheckBox fx:id="rememberMeCheckbox"
+                      text="Remember me" styleClass="remember-checkbox"/>
+
+            <Label fx:id="errorLabel" styleClass="error-label"
+                   text="" visible="false" wrapText="true" prefWidth="300"/>
+
+            <Button fx:id="loginButton"
+                    text="SIGN IN"
+                    styleClass="login-button"
+                    prefWidth="300"
+                    onAction="#handleLogin"/>
+
+            <Separator prefWidth="300"/>
+
+            <Label styleClass="version-label" text="DigiSchool EMIS v1.0.0"/>
+            <Label styleClass="version-label" text="Kenya CBC Edition"/>
+
+        </VBox>
+    </HBox>
+
+    <!-- Loading overlay -->
+    <StackPane fx:id="loadingOverlay" visible="false"
+               AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+               AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+               styleClass="loading-overlay">
+        <VBox alignment="CENTER" spacing="15">
+            <ProgressIndicator styleClass="progress-indicator"/>
+            <Label text="Signing in..." styleClass="loading-label"/>
+        </VBox>
+    </StackPane>
+
+</AnchorPane>
