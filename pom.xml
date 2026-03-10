@@ -29,7 +29,7 @@
         <controlsfx.version>11.2.1</controlsfx.version>
         <ikonli.version>12.3.1</ikonli.version>
         <lombok.version>1.18.32</lombok.version>
-        <jasperreports.version>6.21.3</jasperreports.version>
+        <jasperreports.version>7.0.4</jasperreports.version>
         <jackson.version>2.17.0</jackson.version>
         <bcrypt.version>0.10.2</bcrypt.version>
     </properties>
@@ -244,7 +244,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.25.3</version>
+            <version>3.27.7</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
