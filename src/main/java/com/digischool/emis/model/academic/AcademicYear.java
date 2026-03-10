@@ -24,8 +24,10 @@ public class AcademicYear extends BaseEntity {
     public Long getSchoolId() { return schoolId; }
     public void setSchoolId(Long schoolId) { this.schoolId = schoolId; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName()                { return name; }
+    public void setName(String name)       { this.name = name; }
+    public String getYearName()            { return name; }
+    public void setYearName(String v)      { this.name = v; }
 
     public LocalDate getStartDate() { return startDate; }
     public void setStartDate(LocalDate startDate) { this.startDate = startDate; }

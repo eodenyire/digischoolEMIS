@@ -12,9 +12,10 @@ public class School extends BaseEntity {
     private String knecCode;
     private String nemisCode;
     private String registrationNumber;
-    private String schoolType;  // PUBLIC, PRIVATE, MISSION, INTERNATIONAL
-    private String schoolLevel; // PRIMARY, SECONDARY, MIXED
-    private String curriculumType; // CBC, IGCSE, IB
+    private String schoolType;
+    private String ownership;   // PUBLIC, PRIVATE, MISSION, INTERNATIONAL
+    private String schoolLevel;
+    private String curriculumType;
     private String email;
     private String phone;
     private String website;
@@ -58,6 +59,9 @@ public class School extends BaseEntity {
     public String getSchoolType() { return schoolType; }
     public void setSchoolType(String schoolType) { this.schoolType = schoolType; }
 
+    public String getOwnership() { return ownership != null ? ownership : schoolType; }
+    public void setOwnership(String v) { this.ownership = v; }
+
     public String getSchoolLevel() { return schoolLevel; }
     public void setSchoolLevel(String schoolLevel) { this.schoolLevel = schoolLevel; }
 
@@ -94,9 +98,8 @@ public class School extends BaseEntity {
     public void setLogoUrl(String logoUrl) { this.logoUrl = logoUrl; }
 
     public int getEstablishedYear() { return establishedYear; }
-    public void setEstablishedYear(int establishedYear) {
-        this.establishedYear = establishedYear;
-    }
+    public void setEstablishedYear(int establishedYear) { this.establishedYear = establishedYear; }
+    public void setEstablishedYear(Integer v) { if (v != null) this.establishedYear = v; }
 
     public String getMotto() { return motto; }
     public void setMotto(String motto) { this.motto = motto; }

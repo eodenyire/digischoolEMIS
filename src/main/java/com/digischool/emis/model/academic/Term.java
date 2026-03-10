@@ -26,8 +26,10 @@ public class Term extends BaseEntity {
     public Long getAcademicYearId() { return academicYearId; }
     public void setAcademicYearId(Long academicYearId) { this.academicYearId = academicYearId; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName()                { return name; }
+    public void setName(String name)       { this.name = name; }
+    public String getTermName()            { return name; }
+    public void setTermName(String v)      { this.name = v; }
 
     public int getTermNumber() { return termNumber; }
     public void setTermNumber(int termNumber) { this.termNumber = termNumber; }

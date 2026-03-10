@@ -9,43 +9,35 @@ import java.time.LocalTime;
  */
 public class StudentAttendance extends BaseEntity {
 
-    private Long sessionId;
-    private Long studentId;
-    private String status; // PRESENT, ABSENT, LATE, EXCUSED, SICK
-    private LocalTime checkInTime;
-    private Integer minutesLate;
-    private String remarks;
-    private Long recordedBy;
+    private Long      sessionId;
+    private Long      studentId;
+    private String    status;         // PRESENT, ABSENT, LATE, EXCUSED, SICK
+    private LocalTime arrivalTime;
+    private LocalTime departureTime;
+    private String    excuseReason;
+    private Long      recordedBy;
+    private boolean   parentNotified;
 
-    public StudentAttendance() {}
+    public StudentAttendance() { this.parentNotified = false; }
 
-    // Getters and Setters
-    public Long getSessionId() { return sessionId; }
-    public void setSessionId(Long sessionId) { this.sessionId = sessionId; }
+    public Long getSessionId()                  { return sessionId; }
+    public void setSessionId(Long sessionId)    { this.sessionId = sessionId; }
+    public Long getStudentId()                  { return studentId; }
+    public void setStudentId(Long studentId)    { this.studentId = studentId; }
+    public String getStatus()                   { return status; }
+    public void setStatus(String status)        { this.status = status; }
+    public LocalTime getArrivalTime()           { return arrivalTime; }
+    public void setArrivalTime(LocalTime v)     { this.arrivalTime = v; }
+    public LocalTime getDepartureTime()         { return departureTime; }
+    public void setDepartureTime(LocalTime v)   { this.departureTime = v; }
+    public String getExcuseReason()             { return excuseReason; }
+    public void setExcuseReason(String v)       { this.excuseReason = v; }
+    public Long getRecordedBy()                 { return recordedBy; }
+    public void setRecordedBy(Long recordedBy)  { this.recordedBy = recordedBy; }
+    public boolean isParentNotified()           { return parentNotified; }
+    public void setParentNotified(boolean v)    { this.parentNotified = v; }
 
-    public Long getStudentId() { return studentId; }
-    public void setStudentId(Long studentId) { this.studentId = studentId; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public LocalTime getCheckInTime() { return checkInTime; }
-    public void setCheckInTime(LocalTime checkInTime) { this.checkInTime = checkInTime; }
-
-    public Integer getMinutesLate() { return minutesLate; }
-    public void setMinutesLate(Integer minutesLate) { this.minutesLate = minutesLate; }
-
-    public String getRemarks() { return remarks; }
-    public void setRemarks(String remarks) { this.remarks = remarks; }
-
-    public Long getRecordedBy() { return recordedBy; }
-    public void setRecordedBy(Long recordedBy) { this.recordedBy = recordedBy; }
-
-    public boolean isPresent() {
-        return "PRESENT".equals(status);
-    }
-
-    public boolean isAbsent() {
-        return "ABSENT".equals(status);
-    }
+    public boolean isPresent() { return "PRESENT".equals(status); }
+    public boolean isAbsent()  { return "ABSENT".equals(status); }
+    public boolean isLate()    { return "LATE".equals(status); }
 }

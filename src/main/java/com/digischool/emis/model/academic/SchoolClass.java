@@ -32,14 +32,16 @@ public class SchoolClass extends BaseEntity {
     public Long getAcademicYearId() { return academicYearId; }
     public void setAcademicYearId(Long academicYearId) { this.academicYearId = academicYearId; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getSection() { return section; }
-    public void setSection(String section) { this.section = section; }
-
-    public int getCapacity() { return capacity; }
-    public void setCapacity(int capacity) { this.capacity = capacity; }
+    public String getName()                { return name; }
+    public void setName(String name)       { this.name = name; }
+    public String getClassName()           { return name; }
+    public void setClassName(String v)     { this.name = v; }
+    public String getSection()             { return section; }
+    public void setSection(String v)       { this.section = v; }
+    public String getStream()              { return section; }
+    public void setStream(String v)        { this.section = v; }
+    public int getCapacity()               { return capacity; }
+    public void setCapacity(int capacity)  { this.capacity = capacity; }
 
     public Long getClassTeacherId() { return classTeacherId; }
     public void setClassTeacherId(Long classTeacherId) { this.classTeacherId = classTeacherId; }
