@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.digischool.emis.ui.controllers.MainDashboardController"
+            stylesheets="@../css/main.css"
+            prefHeight="768.0" prefWidth="1366.0">
+
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="top-navbar" alignment="CENTER_LEFT" spacing="10">
+            <padding>
+                <Insets top="8" right="20" bottom="8" left="20"/>
+            </padding>
+            <Label styleClass="navbar-brand" text="🏫 DigiSchool EMIS"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="schoolNameLabel" styleClass="navbar-school" text="Loading school..."/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label fx:id="currentUserLabel" styleClass="navbar-user" text=""/>
+            <Label styleClass="navbar-divider" text="|"/>
+            <Label fx:id="currentDateLabel" styleClass="navbar-date" text=""/>
+            <Button text="Logout" styleClass="navbar-btn-logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <!-- Left Sidebar Navigation -->
+    <left>
+        <ScrollPane styleClass="sidebar-scroll" fitToWidth="true" prefWidth="220">
+            <VBox styleClass="sidebar" spacing="2">
+                <padding>
+                    <Insets top="10" right="5" bottom="10" left="5"/>
+                </padding>
+
+                <!-- Dashboard -->
+                <Button text="📊  Dashboard" styleClass="sidebar-btn, sidebar-btn-active"
+                        prefWidth="210" onAction="#showDashboard"/>
+
+                <Label text="ACADEMICS" styleClass="sidebar-section-label"/>
+                <Button text="👩‍🎓  Students" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showStudents"/>
+                <Button text="👨‍🏫  Teachers" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showTeachers"/>
+                <Button text="📚  Classes" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showClasses"/>
+                <Button text="📖  Subjects" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showSubjects"/>
+                <Button text="🗓️  Timetable" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showTimetable"/>
+
+                <Label text="ASSESSMENTS" styleClass="sidebar-section-label"/>
+                <Button text="📝  Assessments" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showAssessments"/>
+                <Button text="🏆  Grades" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showGrades"/>
+                <Button text="📋  Report Cards" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showReportCards"/>
+                <Button text="🇰🇪  CBC Competencies" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showCbcCompetencies"/>
+
+                <Label text="ATTENDANCE" styleClass="sidebar-section-label"/>
+                <Button text="✅  Attendance" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showAttendance"/>
+
+                <Label text="FINANCE" styleClass="sidebar-section-label"/>
+                <Button text="💰  Fee Management" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showFeeManagement"/>
+                <Button text="🧾  Payments" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showPayments"/>
+
+                <Label text="LEARNING" styleClass="sidebar-section-label"/>
+                <Button text="🖥️  LMS" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showLms"/>
+                <Button text="📚  Library" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showLibrary"/>
+
+                <Label text="OPERATIONS" styleClass="sidebar-section-label"/>
+                <Button text="🚌  Transport" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showTransport"/>
+                <Button text="🏠  Boarding" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showBoarding"/>
+                <Button text="🏥  Health Records" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showHealthRecords"/>
+                <Button text="⚖️  Discipline" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showDiscipline"/>
+
+                <Label text="COMMUNICATIONS" styleClass="sidebar-section-label"/>
+                <Button text="📣  Announcements" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showAnnouncements"/>
+                <Button text="✉️  Messages" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showMessages"/>
+
+                <Label text="ANALYTICS" styleClass="sidebar-section-label"/>
+                <Button text="📊  Analytics &amp; AI" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showAnalytics"/>
+                <Button text="📄  Documents" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showDocuments"/>
+                <Button text="🎓  Alumni" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showAlumni"/>
+
+                <Label text="SYSTEM" styleClass="sidebar-section-label"/>
+                <Button text="⚙️  Settings" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showSettings"/>
+                <Button text="🔒  Admin" styleClass="sidebar-btn"
+                        prefWidth="210" onAction="#showAdmin"/>
+
+            </VBox>
+        </ScrollPane>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+            <!-- Dashboard content will be loaded here dynamically -->
+            <VBox alignment="CENTER" spacing="20" fx:id="welcomePane">
+                <Label styleClass="welcome-title" text="Welcome to DigiSchool EMIS"/>
+                <Label styleClass="welcome-subtitle"
+                       text="Kenya CBC School Management System"
+                       wrapText="true" textAlignment="CENTER"/>
+
+                <!-- Stats Cards Row 1 -->
+                <HBox spacing="20" alignment="CENTER">
+                    <VBox styleClass="stat-card, stat-card-blue" spacing="5" alignment="CENTER"
+                          prefWidth="200" prefHeight="120">
+                        <Label styleClass="stat-icon" text="👩‍🎓"/>
+                        <Label fx:id="totalStudentsLabel" styleClass="stat-value" text="0"/>
+                        <Label styleClass="stat-label" text="Total Students"/>
+                    </VBox>
+                    <VBox styleClass="stat-card, stat-card-green" spacing="5" alignment="CENTER"
+                          prefWidth="200" prefHeight="120">
+                        <Label styleClass="stat-icon" text="👨‍🏫"/>
+                        <Label fx:id="totalTeachersLabel" styleClass="stat-value" text="0"/>
+                        <Label styleClass="stat-label" text="Total Teachers"/>
+                    </VBox>
+                    <VBox styleClass="stat-card, stat-card-orange" spacing="5" alignment="CENTER"
+                          prefWidth="200" prefHeight="120">
+                        <Label styleClass="stat-icon" text="🏫"/>
+                        <Label fx:id="totalClassesLabel" styleClass="stat-value" text="0"/>
+                        <Label styleClass="stat-label" text="Active Classes"/>
+                    </VBox>
+                    <VBox styleClass="stat-card, stat-card-purple" spacing="5" alignment="CENTER"
+                          prefWidth="200" prefHeight="120">
+                        <Label styleClass="stat-icon" text="💰"/>
+                        <Label fx:id="feeCollectionLabel" styleClass="stat-value" text="KES 0"/>
+                        <Label styleClass="stat-label" text="Fee Collection (Term)"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Stats Cards Row 2 -->
+                <HBox spacing="20" alignment="CENTER">
+                    <VBox styleClass="stat-card, stat-card-teal" spacing="5" alignment="CENTER"
+                          prefWidth="200" prefHeight="120">
+                        <Label styleClass="stat-icon" text="✅"/>
+                        <Label fx:id="attendanceRateLabel" styleClass="stat-value" text="0%"/>
+                        <Label styleClass="stat-label" text="Attendance Rate"/>
+                    </VBox>
+                    <VBox styleClass="stat-card, stat-card-red" spacing="5" alignment="CENTER"
+                          prefWidth="200" prefHeight="120">
+                        <Label styleClass="stat-icon" text="📝"/>
+                        <Label fx:id="pendingFeesLabel" styleClass="stat-value" text="0"/>
+                        <Label styleClass="stat-label" text="Pending Fee Invoices"/>
+                    </VBox>
+                    <VBox styleClass="stat-card, stat-card-indigo" spacing="5" alignment="CENTER"
+                          prefWidth="200" prefHeight="120">
+                        <Label styleClass="stat-icon" text="📚"/>
+                        <Label fx:id="booksIssuedLabel" styleClass="stat-value" text="0"/>
+                        <Label styleClass="stat-label" text="Books Issued"/>
+                    </VBox>
+                    <VBox styleClass="stat-card, stat-card-yellow" spacing="5" alignment="CENTER"
+                          prefWidth="200" prefHeight="120">
+                        <Label styleClass="stat-icon" text="📣"/>
+                        <Label fx:id="announcementsLabel" styleClass="stat-value" text="0"/>
+                        <Label styleClass="stat-label" text="Announcements Today"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <!-- Status Bar at bottom -->
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER_LEFT" spacing="20">
+            <padding>
+                <Insets top="5" right="20" bottom="5" left="20"/>
+            </padding>
+            <Label fx:id="statusLabel" text="Ready" styleClass="status-text"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label text="DigiSchool EMIS v1.0.0 | Kenya CBC Edition" styleClass="status-version"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

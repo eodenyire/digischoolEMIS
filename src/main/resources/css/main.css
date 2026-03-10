@@ -1,0 +1,343 @@
+/* DigiSchool EMIS - Main Application Styles */
+
+/* ============================================================
+   TOP NAVBAR
+   ============================================================ */
+.top-navbar {
+    -fx-background-color: #1565C0;
+    -fx-pref-height: 56px;
+    -fx-min-height: 56px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
+}
+
+.navbar-brand {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.navbar-school {
+    -fx-font-size: 14px;
+    -fx-text-fill: #B3E5FC;
+    -fx-font-style: italic;
+}
+
+.navbar-user {
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+.navbar-divider {
+    -fx-text-fill: #5B9BD5;
+}
+
+.navbar-date {
+    -fx-font-size: 13px;
+    -fx-text-fill: #B3E5FC;
+}
+
+.navbar-btn-logout {
+    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-text-fill: white;
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-padding: 6 14;
+}
+
+.navbar-btn-logout:hover {
+    -fx-background-color: rgba(255,255,255,0.25);
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar-scroll {
+    -fx-background-color: #263238;
+    -fx-border-width: 0;
+}
+
+.sidebar {
+    -fx-background-color: #263238;
+    -fx-padding: 8 5;
+}
+
+.sidebar-section-label {
+    -fx-font-size: 10px;
+    -fx-text-fill: #546E7A;
+    -fx-font-weight: bold;
+    -fx-padding: 12 8 4 8;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #B0BEC5;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 9 12;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-text-fill: white;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: rgba(21,101,192,0.4);
+    -fx-text-fill: white;
+    -fx-border-color: rgba(21,101,192,0.8);
+    -fx-border-width: 0 0 0 3;
+}
+
+/* ============================================================
+   CONTENT AREA
+   ============================================================ */
+.content-area {
+    -fx-background-color: #ECEFF1;
+    -fx-padding: 20;
+}
+
+/* ============================================================
+   DASHBOARD STATS CARDS
+   ============================================================ */
+.stat-card {
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.stat-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);
+    -fx-translate-y: -2;
+}
+
+.stat-card-blue {
+    -fx-background-color: linear-gradient(to bottom right, #1976D2, #1565C0);
+}
+
+.stat-card-green {
+    -fx-background-color: linear-gradient(to bottom right, #43A047, #2E7D32);
+}
+
+.stat-card-orange {
+    -fx-background-color: linear-gradient(to bottom right, #FB8C00, #E65100);
+}
+
+.stat-card-purple {
+    -fx-background-color: linear-gradient(to bottom right, #8E24AA, #6A1B9A);
+}
+
+.stat-card-teal {
+    -fx-background-color: linear-gradient(to bottom right, #00897B, #00695C);
+}
+
+.stat-card-red {
+    -fx-background-color: linear-gradient(to bottom right, #E53935, #C62828);
+}
+
+.stat-card-indigo {
+    -fx-background-color: linear-gradient(to bottom right, #3949AB, #283593);
+}
+
+.stat-card-yellow {
+    -fx-background-color: linear-gradient(to bottom right, #F9A825, #F57F17);
+}
+
+.stat-icon {
+    -fx-font-size: 32px;
+}
+
+.stat-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.stat-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-text-alignment: center;
+}
+
+/* ============================================================
+   WELCOME PANEL
+   ============================================================ */
+.welcome-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1565C0;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.welcome-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #546E7A;
+}
+
+/* ============================================================
+   STATUS BAR
+   ============================================================ */
+.status-bar {
+    -fx-background-color: #ECEFF1;
+    -fx-border-color: #CFD8DC;
+    -fx-border-width: 1 0 0 0;
+    -fx-pref-height: 28px;
+}
+
+.status-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #546E7A;
+}
+
+.status-version {
+    -fx-font-size: 12px;
+    -fx-text-fill: #90A4AE;
+}
+
+/* ============================================================
+   DATA TABLES
+   ============================================================ */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.table-view .column-header {
+    -fx-background-color: #1565C0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 10 8;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #E3F2FD;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #FAFAFA;
+}
+
+.table-row-cell:even {
+    -fx-background-color: white;
+}
+
+/* ============================================================
+   FORM ELEMENTS
+   ============================================================ */
+.form-card {
+    -fx-background-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3);
+}
+
+.form-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1565C0;
+}
+
+.form-field {
+    -fx-pref-height: 40px;
+    -fx-border-color: #BDBDBD;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 6 10;
+    -fx-font-size: 13px;
+}
+
+.form-field:focused {
+    -fx-border-color: #1565C0;
+    -fx-border-width: 2;
+}
+
+.btn-primary {
+    -fx-background-color: #1565C0;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #0D47A1;
+}
+
+.btn-secondary {
+    -fx-background-color: white;
+    -fx-text-fill: #1565C0;
+    -fx-border-color: #1565C0;
+    -fx-font-size: 14px;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.btn-danger {
+    -fx-background-color: #C62828;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+/* ============================================================
+   BADGES / STATUS INDICATORS
+   ============================================================ */
+.badge-success {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 2 8;
+    -fx-font-size: 12px;
+}
+
+.badge-warning {
+    -fx-background-color: #FFF8E1;
+    -fx-text-fill: #F57F17;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 2 8;
+    -fx-font-size: 12px;
+}
+
+.badge-danger {
+    -fx-background-color: #FFEBEE;
+    -fx-text-fill: #C62828;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 2 8;
+    -fx-font-size: 12px;
+}
+
+.badge-info {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1565C0;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 2 8;
+    -fx-font-size: 12px;
+}
