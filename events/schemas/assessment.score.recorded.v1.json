@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assessment.score.recorded.v1",
+  "title": "assessment.score.recorded.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "assessment_score"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"const": "assessment.score.recorded.v1"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "format": "uuid"},
+    "school_id": {"type": "string", "format": "uuid"},
+    "actor": {"type": "object", "required": ["user_id", "role"], "properties": {"user_id": {"type": "string", "format": "uuid"}, "role": {"type": "string"}}},
+    "trace": {"type": "object", "required": ["request_id", "correlation_id"], "properties": {"request_id": {"type": "string", "format": "uuid"}, "correlation_id": {"type": "string", "format": "uuid"}}},
+    "assessment_score": {
+      "type": "object",
+      "required": ["id", "submission_id", "student_id"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "submission_id": {"type": "string", "format": "uuid"},
+        "student_id": {"type": "string", "format": "uuid"},
+        "raw_score": {"type": ["number", "null"]},
+        "mastery_level": {"type": ["string", "null"]},
+        "scored_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "finance.invoice.issued.v1",
+  "title": "finance.invoice.issued.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "invoice"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"const": "finance.invoice.issued.v1"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "format": "uuid"},
+    "school_id": {"type": "string", "format": "uuid"},
+    "actor": {"type": "object", "required": ["user_id", "role"], "properties": {"user_id": {"type": "string", "format": "uuid"}, "role": {"type": "string"}}},
+    "trace": {"type": "object", "required": ["request_id", "correlation_id"], "properties": {"request_id": {"type": "string", "format": "uuid"}, "correlation_id": {"type": "string", "format": "uuid"}}},
+    "invoice": {
+      "type": "object",
+      "required": ["id", "student_id", "invoice_no", "invoice_date", "total_amount", "balance_amount"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "student_id": {"type": "string", "format": "uuid"},
+        "invoice_no": {"type": "string"},
+        "invoice_date": {"type": "string", "format": "date"},
+        "due_date": {"type": ["string", "null"], "format": "date"},
+        "total_amount": {"type": "number"},
+        "balance_amount": {"type": "number"}
+      }
+    }
+  }
+}

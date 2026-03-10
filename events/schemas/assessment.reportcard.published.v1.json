@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assessment.reportcard.published.v1",
+  "title": "assessment.reportcard.published.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "report_card"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"const": "assessment.reportcard.published.v1"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "format": "uuid"},
+    "school_id": {"type": "string", "format": "uuid"},
+    "actor": {"type": "object", "required": ["user_id", "role"], "properties": {"user_id": {"type": "string", "format": "uuid"}, "role": {"type": "string"}}},
+    "trace": {"type": "object", "required": ["request_id", "correlation_id"], "properties": {"request_id": {"type": "string", "format": "uuid"}, "correlation_id": {"type": "string", "format": "uuid"}}},
+    "report_card": {
+      "type": "object",
+      "required": ["id", "student_id", "term_id", "snapshot_version", "published_at"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "student_id": {"type": "string", "format": "uuid"},
+        "term_id": {"type": "string", "format": "uuid"},
+        "snapshot_version": {"type": "integer", "minimum": 1},
+        "published_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}

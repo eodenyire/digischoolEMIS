@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "communication.message.sent.v1",
+  "title": "communication.message.sent.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "actor", "trace", "message"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"const": "communication.message.sent.v1"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "format": "uuid"},
+    "school_id": {"type": ["string", "null"], "format": "uuid"},
+    "actor": {
+      "type": "object",
+      "required": ["user_id", "role"],
+      "properties": {
+        "user_id": {"type": "string", "format": "uuid"},
+        "role": {"type": "string"}
+      }
+    },
+    "trace": {
+      "type": "object",
+      "required": ["request_id", "correlation_id"],
+      "properties": {
+        "request_id": {"type": "string", "format": "uuid"},
+        "correlation_id": {"type": "string", "format": "uuid"}
+      }
+    },
+    "message": {
+      "type": "object",
+      "required": ["id", "channel", "status"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "channel": {"type": "string", "enum": ["sms", "email", "push"]},
+        "status": {"type": "string", "enum": ["queued", "sent", "failed"]},
+        "provider": {"type": ["string", "null"]},
+        "sent_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    }
+  }
+}

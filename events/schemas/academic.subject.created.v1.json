@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "academic.subject.created.v1",
+  "title": "academic.subject.created.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "subject"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"const": "academic.subject.created.v1"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "format": "uuid"},
+    "school_id": {"type": "string", "format": "uuid"},
+    "actor": {"type": "object", "required": ["user_id", "role"], "properties": {"user_id": {"type": "string", "format": "uuid"}, "role": {"type": "string"}}},
+    "trace": {"type": "object", "required": ["request_id", "correlation_id"], "properties": {"request_id": {"type": "string", "format": "uuid"}, "correlation_id": {"type": "string", "format": "uuid"}}},
+    "subject": {
+      "type": "object",
+      "required": ["id", "code", "name"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "learning_area_id": {"type": ["string", "null"], "format": "uuid"},
+        "code": {"type": "string"},
+        "name": {"type": "string"},
+        "is_elective": {"type": "boolean"}
+      }
+    }
+  }
+}

@@ -1,0 +1,883 @@
+openapi: 3.0.3
+info:
+  title: digischoolEMIS Wave 1 API
+  version: 1.0.0
+  description: |
+    Wave 1 contract for IAM, SIS, Academic Management, Attendance, and Communication services.
+servers:
+  - url: https://api.digischoolemis.example.com
+security:
+  - bearerAuth: []
+tags:
+  - name: Auth
+  - name: Users
+  - name: Students
+  - name: Enrollments
+  - name: Academic
+  - name: Attendance
+  - name: Communications
+paths:
+  /api/v1/auth/login:
+    post:
+      tags: [Auth]
+      summary: Login and receive tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/v1/auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Refresh access token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+      responses:
+        '200':
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/v1/users:
+    post:
+      tags: [Users]
+      summary: Create user
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: Created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+
+  /api/v1/users/{userId}:
+    get:
+      tags: [Users]
+      summary: Get user by id
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/students:
+    post:
+      tags: [Students]
+      summary: Create student profile
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStudentRequest'
+      responses:
+        '201':
+          description: Created student
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentResponse'
+
+  /api/v1/students/{studentId}:
+    get:
+      tags: [Students]
+      summary: Get student profile
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - $ref: '#/components/parameters/StudentIdPath'
+      responses:
+        '200':
+          description: Student
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      tags: [Students]
+      summary: Update student profile
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - $ref: '#/components/parameters/StudentIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStudentRequest'
+      responses:
+        '200':
+          description: Updated student
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentResponse'
+
+  /api/v1/enrollments:
+    post:
+      tags: [Enrollments]
+      summary: Enroll student into school year/term
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnrollmentRequest'
+      responses:
+        '201':
+          description: Enrollment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentResponse'
+
+  /api/v1/subjects:
+    post:
+      tags: [Academic]
+      summary: Create subject
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubjectRequest'
+      responses:
+        '201':
+          description: Subject created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubjectResponse'
+
+  /api/v1/class-streams:
+    post:
+      tags: [Academic]
+      summary: Create class stream
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClassStreamRequest'
+      responses:
+        '201':
+          description: Class stream created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassStreamResponse'
+
+  /api/v1/attendance/sessions:
+    post:
+      tags: [Attendance]
+      summary: Create an attendance session
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAttendanceSessionRequest'
+      responses:
+        '201':
+          description: Attendance session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendanceSessionResponse'
+
+  /api/v1/attendance/marks:
+    post:
+      tags: [Attendance]
+      summary: Mark student attendance for a session
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAttendanceMarkRequest'
+      responses:
+        '201':
+          description: Attendance mark recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendanceMarkResponse'
+
+  /api/v1/attendance/students/{studentId}:
+    get:
+      tags: [Attendance]
+      summary: Get attendance history for student
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - $ref: '#/components/parameters/StudentIdPath'
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Attendance records
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AttendanceMarkResponse'
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+
+  /api/v1/communications/messages:
+    post:
+      tags: [Communications]
+      summary: Send single or bulk message
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMessageRequest'
+      responses:
+        '202':
+          description: Accepted for delivery
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+
+  /api/v1/communications/delivery-status/{messageId}:
+    get:
+      tags: [Communications]
+      summary: Get message delivery status
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - $ref: '#/components/parameters/MessageIdPath'
+      responses:
+        '200':
+          description: Delivery status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    TenantHeader:
+      name: X-Tenant-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+    UserIdPath:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    StudentIdPath:
+      name: studentId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    MessageIdPath:
+      name: messageId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+
+  schemas:
+    Meta:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+        version:
+          type: string
+          example: v1
+
+    ErrorEnvelope:
+      type: object
+      properties:
+        data:
+          nullable: true
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+
+    RefreshRequest:
+      type: object
+      required: [refresh_token]
+      properties:
+        refresh_token:
+          type: string
+
+    LoginResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            access_token:
+              type: string
+            refresh_token:
+              type: string
+            expires_in:
+              type: integer
+            user:
+              $ref: '#/components/schemas/User'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+
+    CreateUserRequest:
+      type: object
+      required: [first_name, last_name, email, password, school_id]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        password:
+          type: string
+          minLength: 8
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        school_id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        status:
+          type: string
+
+    UserResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+
+    CreateStudentRequest:
+      type: object
+      required: [school_id, first_name, last_name]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        campus_id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        middle_name:
+          type: string
+        last_name:
+          type: string
+        sex:
+          type: string
+          enum: [male, female, other]
+        date_of_birth:
+          type: string
+          format: date
+
+    UpdateStudentRequest:
+      type: object
+      properties:
+        first_name:
+          type: string
+        middle_name:
+          type: string
+        last_name:
+          type: string
+        sex:
+          type: string
+          enum: [male, female, other]
+        date_of_birth:
+          type: string
+          format: date
+
+    Student:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        school_id:
+          type: string
+          format: uuid
+        campus_id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        middle_name:
+          type: string
+        last_name:
+          type: string
+        sex:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
+
+    StudentResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Student'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+
+    CreateEnrollmentRequest:
+      type: object
+      required: [student_id, school_id, academic_year_id, enrolled_at]
+      properties:
+        student_id:
+          type: string
+          format: uuid
+        school_id:
+          type: string
+          format: uuid
+        academic_year_id:
+          type: string
+          format: uuid
+        term_id:
+          type: string
+          format: uuid
+        enrollment_status:
+          type: string
+          enum: [active, inactive, graduated, transferred]
+        enrolled_at:
+          type: string
+          format: date
+
+    Enrollment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        school_id:
+          type: string
+          format: uuid
+        academic_year_id:
+          type: string
+          format: uuid
+        term_id:
+          type: string
+          format: uuid
+        enrollment_status:
+          type: string
+        enrolled_at:
+          type: string
+          format: date
+
+    EnrollmentResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Enrollment'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+
+    CreateSubjectRequest:
+      type: object
+      required: [school_id, code, name]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        learning_area_id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        name:
+          type: string
+        is_elective:
+          type: boolean
+
+    Subject:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        school_id:
+          type: string
+          format: uuid
+        learning_area_id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        name:
+          type: string
+        is_elective:
+          type: boolean
+
+    SubjectResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Subject'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+
+    CreateClassStreamRequest:
+      type: object
+      required: [school_id, academic_year_id, name, grade_code]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        academic_year_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        grade_code:
+          type: string
+        capacity:
+          type: integer
+          minimum: 1
+
+    ClassStream:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        school_id:
+          type: string
+          format: uuid
+        academic_year_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        grade_code:
+          type: string
+        capacity:
+          type: integer
+
+    ClassStreamResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ClassStream'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+
+    CreateAttendanceSessionRequest:
+      type: object
+      required: [school_id, class_stream_id, session_date, session_type]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        class_stream_id:
+          type: string
+          format: uuid
+        session_date:
+          type: string
+          format: date
+        session_type:
+          type: string
+          enum: [morning, afternoon, full_day]
+
+    AttendanceSession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        school_id:
+          type: string
+          format: uuid
+        class_stream_id:
+          type: string
+          format: uuid
+        session_date:
+          type: string
+          format: date
+        session_type:
+          type: string
+
+    AttendanceSessionResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AttendanceSession'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+
+    CreateAttendanceMarkRequest:
+      type: object
+      required: [attendance_session_id, student_id, status]
+      properties:
+        attendance_session_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [present, absent, late, excused]
+        arrived_at:
+          type: string
+          format: time
+        reason:
+          type: string
+
+    AttendanceMark:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        attendance_session_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+        arrived_at:
+          type: string
+          format: time
+        reason:
+          type: string
+
+    AttendanceMarkResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AttendanceMark'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+
+    CreateMessageRequest:
+      type: object
+      required: [school_id, channel, body, recipients]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        channel:
+          type: string
+          enum: [sms, email, push]
+        subject:
+          type: string
+        body:
+          type: string
+        recipients:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              recipient_type:
+                type: string
+                enum: [student, guardian, teacher, custom]
+              recipient_id:
+                type: string
+                format: uuid
+              destination:
+                type: string
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        school_id:
+          type: string
+          format: uuid
+        channel:
+          type: string
+        subject:
+          type: string
+        body:
+          type: string
+        status:
+          type: string
+          enum: [queued, sent, failed]
+        sent_at:
+          type: string
+          format: date-time
+
+    MessageResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Message'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object

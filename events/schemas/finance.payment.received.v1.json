@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "finance.payment.received.v1",
+  "title": "finance.payment.received.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "payment"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"const": "finance.payment.received.v1"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "format": "uuid"},
+    "school_id": {"type": "string", "format": "uuid"},
+    "actor": {"type": "object", "required": ["user_id", "role"], "properties": {"user_id": {"type": "string", "format": "uuid"}, "role": {"type": "string"}}},
+    "trace": {"type": "object", "required": ["request_id", "correlation_id"], "properties": {"request_id": {"type": "string", "format": "uuid"}, "correlation_id": {"type": "string", "format": "uuid"}}},
+    "payment": {
+      "type": "object",
+      "required": ["id", "student_id", "payment_ref", "payment_method", "amount", "paid_at"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "student_id": {"type": "string", "format": "uuid"},
+        "payment_ref": {"type": "string"},
+        "payment_method": {"type": "string"},
+        "amount": {"type": "number"},
+        "paid_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}

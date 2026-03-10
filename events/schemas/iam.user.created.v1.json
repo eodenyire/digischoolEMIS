@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iam.user.created.v1",
+  "title": "iam.user.created.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "actor", "trace", "user"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"const": "iam.user.created.v1"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "format": "uuid"},
+    "school_id": {"type": ["string", "null"], "format": "uuid"},
+    "actor": {
+      "type": "object",
+      "required": ["user_id", "role"],
+      "properties": {
+        "user_id": {"type": "string", "format": "uuid"},
+        "role": {"type": "string"}
+      }
+    },
+    "trace": {
+      "type": "object",
+      "required": ["request_id", "correlation_id"],
+      "properties": {
+        "request_id": {"type": "string", "format": "uuid"},
+        "correlation_id": {"type": "string", "format": "uuid"}
+      }
+    },
+    "user": {
+      "type": "object",
+      "required": ["id", "email", "first_name", "last_name", "status"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "email": {"type": "string", "format": "email"},
+        "first_name": {"type": "string"},
+        "last_name": {"type": "string"},
+        "status": {"type": "string"}
+      }
+    }
+  }
+}

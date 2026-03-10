@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: digischool-postgres
+    environment:
+      POSTGRES_USER: digischool
+      POSTGRES_PASSWORD: digischool
+      POSTGRES_DB: digischool
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U digischool -d digischool"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  wave1-api:
+    build:
+      context: ./services/wave1-fastapi
+    container_name: digischool-wave1-api
+    environment:
+      DATABASE_URL: postgresql+psycopg2://digischool:digischool@postgres:5432/digischool
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "attendance.mark.recorded.v1",
+  "title": "attendance.mark.recorded.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "attendance_mark"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"const": "attendance.mark.recorded.v1"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "format": "uuid"},
+    "school_id": {"type": "string", "format": "uuid"},
+    "actor": {"type": "object", "required": ["user_id", "role"], "properties": {"user_id": {"type": "string", "format": "uuid"}, "role": {"type": "string"}}},
+    "trace": {"type": "object", "required": ["request_id", "correlation_id"], "properties": {"request_id": {"type": "string", "format": "uuid"}, "correlation_id": {"type": "string", "format": "uuid"}}},
+    "attendance_mark": {
+      "type": "object",
+      "required": ["id", "attendance_session_id", "student_id", "status"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "attendance_session_id": {"type": "string", "format": "uuid"},
+        "student_id": {"type": "string", "format": "uuid"},
+        "status": {"type": "string", "enum": ["present", "absent", "late", "excused"]},
+        "arrived_at": {"type": ["string", "null"], "format": "time"},
+        "reason": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

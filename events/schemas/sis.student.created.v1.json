@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sis.student.created.v1",
+  "title": "sis.student.created.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "student"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"const": "sis.student.created.v1"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "tenant_id": {"type": "string", "format": "uuid"},
+    "school_id": {"type": "string", "format": "uuid"},
+    "actor": {
+      "type": "object",
+      "required": ["user_id", "role"],
+      "properties": {
+        "user_id": {"type": "string", "format": "uuid"},
+        "role": {"type": "string"}
+      }
+    },
+    "trace": {
+      "type": "object",
+      "required": ["request_id", "correlation_id"],
+      "properties": {
+        "request_id": {"type": "string", "format": "uuid"},
+        "correlation_id": {"type": "string", "format": "uuid"}
+      }
+    },
+    "student": {
+      "type": "object",
+      "required": ["id", "first_name", "last_name", "admission_date"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "first_name": {"type": "string"},
+        "last_name": {"type": "string"},
+        "sex": {"type": "string"},
+        "date_of_birth": {"type": ["string", "null"], "format": "date"},
+        "admission_date": {"type": ["string", "null"], "format": "date"}
+      }
+    }
+  }
+}
