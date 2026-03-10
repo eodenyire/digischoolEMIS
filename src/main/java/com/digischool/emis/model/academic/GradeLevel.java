@@ -14,16 +14,26 @@ public class GradeLevel extends BaseEntity {
 
     private Long schoolId;
     private String name;
+    private String gradeName;  // alias for name
+    private String gradeCode;
     private int levelNumber;
-    private String category; // LOWER_PRIMARY, UPPER_PRIMARY, JSS, SS
+    private int gradeOrder;
+    private String category;
+    private String cbcCategory; // alias for category
+    private boolean isActive;
 
-    public GradeLevel() {}
+    public GradeLevel() { this.isActive = true; }
 
     public GradeLevel(Long schoolId, int levelNumber) {
-        this.schoolId = schoolId;
+        this();
+        this.schoolId    = schoolId;
         this.levelNumber = levelNumber;
-        this.name = "Grade " + levelNumber;
-        this.category = determineCbcCategory(levelNumber);
+        this.gradeOrder  = levelNumber;
+        this.name        = "Grade " + levelNumber;
+        this.gradeName   = this.name;
+        this.gradeCode   = "G" + levelNumber;
+        this.category    = determineCbcCategory(levelNumber);
+        this.cbcCategory = this.category;
     }
 
     private String determineCbcCategory(int level) {
@@ -33,16 +43,22 @@ public class GradeLevel extends BaseEntity {
         return "SS";
     }
 
-    // Getters and Setters
-    public Long getSchoolId() { return schoolId; }
-    public void setSchoolId(Long schoolId) { this.schoolId = schoolId; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public int getLevelNumber() { return levelNumber; }
-    public void setLevelNumber(int levelNumber) { this.levelNumber = levelNumber; }
-
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    public Long getSchoolId()              { return schoolId; }
+    public void setSchoolId(Long v)        { this.schoolId = v; }
+    public String getName()                { return name; }
+    public void setName(String name)       { this.name = name; this.gradeName = name; }
+    public String getGradeName()           { return gradeName != null ? gradeName : name; }
+    public void setGradeName(String v)     { this.gradeName = v; this.name = v; }
+    public String getGradeCode()           { return gradeCode; }
+    public void setGradeCode(String v)     { this.gradeCode = v; }
+    public int getLevelNumber()            { return levelNumber; }
+    public void setLevelNumber(int v)      { this.levelNumber = v; }
+    public int getGradeOrder()             { return gradeOrder > 0 ? gradeOrder : levelNumber; }
+    public void setGradeOrder(int v)       { this.gradeOrder = v; }
+    public String getCategory()            { return category; }
+    public void setCategory(String v)      { this.category = v; this.cbcCategory = v; }
+    public String getCbcCategory()         { return cbcCategory != null ? cbcCategory : category; }
+    public void setCbcCategory(String v)   { this.cbcCategory = v; this.category = v; }
+    public boolean isActive()              { return isActive; }
+    public void setActive(boolean v)       { this.isActive = v; }
 }

@@ -14,7 +14,7 @@ public class FeePayment extends BaseEntity {
     private Long studentId;
     private String receiptNumber;
     private LocalDate paymentDate;
-    private BigDecimal amountPaid;
+    private BigDecimal amount;          // canonical amount field
     private String paymentMethod; // CASH, MPESA, BANK_TRANSFER, CHEQUE
     private String transactionReference;
     private String mpesaCode;
@@ -41,8 +41,8 @@ public class FeePayment extends BaseEntity {
     public LocalDate getPaymentDate() { return paymentDate; }
     public void setPaymentDate(LocalDate paymentDate) { this.paymentDate = paymentDate; }
 
-    public BigDecimal getAmountPaid() { return amountPaid; }
-    public void setAmountPaid(BigDecimal amountPaid) { this.amountPaid = amountPaid; }
+    public BigDecimal getAmount() { return amount; }
+    public void setAmount(BigDecimal amount) { this.amount = amount; }
 
     public String getPaymentMethod() { return paymentMethod; }
     public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }

@@ -10,10 +10,12 @@ import java.time.LocalDate;
 public class StudentInvoice extends BaseEntity {
 
     private Long studentId;
+    private Long schoolId;
     private Long feeStructureId;
     private Long termId;
     private Long academicYearId;
     private String invoiceNumber;
+    private String description;
     private LocalDate invoiceDate;
     private LocalDate dueDate;
     private BigDecimal totalAmount;
@@ -37,6 +39,9 @@ public class StudentInvoice extends BaseEntity {
     public Long getStudentId() { return studentId; }
     public void setStudentId(Long studentId) { this.studentId = studentId; }
 
+    public Long getSchoolId() { return schoolId; }
+    public void setSchoolId(Long schoolId) { this.schoolId = schoolId; }
+
     public Long getFeeStructureId() { return feeStructureId; }
     public void setFeeStructureId(Long feeStructureId) { this.feeStructureId = feeStructureId; }
 
@@ -48,6 +53,9 @@ public class StudentInvoice extends BaseEntity {
 
     public String getInvoiceNumber() { return invoiceNumber; }
     public void setInvoiceNumber(String invoiceNumber) { this.invoiceNumber = invoiceNumber; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String v) { this.description = v; }
 
     public LocalDate getInvoiceDate() { return invoiceDate; }
     public void setInvoiceDate(LocalDate invoiceDate) { this.invoiceDate = invoiceDate; }
