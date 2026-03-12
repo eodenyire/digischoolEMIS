@@ -12,6 +12,7 @@ public class CbcCoreCompetency extends BaseEntity {
     private String code;
     private String description;
     private String category; // COGNITIVE, SOCIAL, CREATIVE, DIGITAL, PERSONAL
+    private boolean active;
 
     public CbcCoreCompetency() {}
 
@@ -27,4 +28,7 @@ public class CbcCoreCompetency extends BaseEntity {
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }
