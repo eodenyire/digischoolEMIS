@@ -19,8 +19,11 @@ DigiSchool EMIS is modeled after global platforms like **PowerSchool**, **Infini
 - [Initial PostgreSQL Migration (100-table baseline)](database/migrations/001_initial_cbc_schema.sql)
 - [Staged Migration Waves](database/migrations/waves/README.md)
 - [Wave 1 OpenAPI Specification](openapi/wave1-services.openapi.yaml)
+- [Wave 2-4 OpenAPI Specification](openapi/wave2-4-services.openapi.yaml)
 - [Event Topics Catalog](events/topics.md)
 - [Event JSON Schemas](events/schemas)
+  - Wave 1: IAM, SIS, Academic, Attendance, Assessment, Finance, Communication
+  - Wave 2-4: Discipline, Transport, Boarding, Analytics, Health, Library, LMS
 - [Wave 1 FastAPI Service Stubs](services/wave1-fastapi/README.md)
 
 ## Runtime and Tooling

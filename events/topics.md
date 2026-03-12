@@ -62,6 +62,41 @@ This catalog defines message topics and payload schema references for asynchrono
 - Consumers: Audit, Analytics
 - Schema: `events/schemas/communication.message.sent.v1.json`
 
+11. `digischool.health.clinic_visit.logged.v1`
+- Producer: Health Service
+- Consumers: Audit, Analytics
+- Schema: `events/schemas/health.clinic_visit.logged.v1.json`
+
+12. `digischool.library.book.issued.v1`
+- Producer: Library Service
+- Consumers: Finance, Analytics
+- Schema: `events/schemas/library.book.issued.v1.json`
+
+13. `digischool.lms.submission.received.v1`
+- Producer: LMS Service
+- Consumers: Assessment, Analytics
+- Schema: `events/schemas/lms.submission.received.v1.json`
+
+14. `digischool.discipline.incident.reported.v1`
+- Producer: Discipline Service
+- Consumers: Communication, Analytics, Parent Portal
+- Schema: `events/schemas/discipline.incident.reported.v1.json`
+
+15. `digischool.transport.student.assigned.v1`
+- Producer: Transport Service
+- Consumers: Communication, Parent Portal
+- Schema: `events/schemas/transport.student.assigned.v1.json`
+
+16. `digischool.boarding.student.allocated.v1`
+- Producer: Boarding Service
+- Consumers: Finance, Communication
+- Schema: `events/schemas/boarding.student.allocated.v1.json`
+
+17. `digischool.analytics.risk.raised.v1`
+- Producer: Analytics Service
+- Consumers: Communication, Parent Portal
+- Schema: `events/schemas/analytics.risk.raised.v1.json`
+
 ## Envelope Requirements (All events)
 
 Each event payload includes:

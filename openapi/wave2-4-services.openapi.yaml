@@ -1,0 +1,1472 @@
+openapi: 3.0.3
+info:
+  title: digischoolEMIS Wave 2-4 API
+  version: 1.0.0
+  description: |
+    Wave 2-4 contracts for the digischoolEMIS platform.
+
+    **Wave 2**: CBC Competency Assessment, Assessment Plans & Scores, Parent Portal
+    **Wave 3**: Finance (Fee Structures, Payments), Timetable, Teacher Management, LMS (Courses, Assignments), Analytics
+    **Wave 4**: Discipline, Health (Clinic Visits), Library, Transport, Boarding
+
+servers:
+  - url: https://api.digischoolemis.example.com
+security:
+  - bearerAuth: []
+tags:
+  - name: CBC
+  - name: Assessments
+  - name: Finance
+  - name: Timetable
+  - name: Teachers
+  - name: LMS
+  - name: Analytics
+  - name: Discipline
+  - name: Health
+  - name: Library
+  - name: Transport
+  - name: Boarding
+  - name: Parent Portal
+
+paths:
+  # ─── CBC ────────────────────────────────────────────────────────────
+  /api/v1/cbc/learning-areas:
+    post:
+      tags: [CBC]
+      summary: Create a CBC learning area
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLearningAreaRequest'
+      responses:
+        '200':
+          description: Created learning area
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/v1/cbc/strands:
+    post:
+      tags: [CBC]
+      summary: Create a CBC strand
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStrandRequest'
+      responses:
+        '200':
+          description: Created strand
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/cbc/sub-strands:
+    post:
+      tags: [CBC]
+      summary: Create a CBC sub-strand
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubStrandRequest'
+      responses:
+        '200':
+          description: Created sub-strand
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/cbc/outcomes:
+    post:
+      tags: [CBC]
+      summary: Create a CBC learning outcome
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLearningOutcomeRequest'
+      responses:
+        '200':
+          description: Created learning outcome
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/cbc/competencies:
+    post:
+      tags: [CBC]
+      summary: Create a CBC competency
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCompetencyRequest'
+      responses:
+        '200':
+          description: Created competency
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Assessments ────────────────────────────────────────────────────
+  /api/v1/assessments/plans:
+    post:
+      tags: [Assessments]
+      summary: Create an assessment plan
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssessmentPlanRequest'
+      responses:
+        '200':
+          description: Created assessment plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/assessments/activities:
+    post:
+      tags: [Assessments]
+      summary: Create an assessment activity
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssessmentActivityRequest'
+      responses:
+        '200':
+          description: Created assessment activity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/assessments/scores:
+    post:
+      tags: [Assessments]
+      summary: Record an assessment score
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssessmentScoreRequest'
+      responses:
+        '200':
+          description: Recorded assessment score
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/report-cards/publish:
+    post:
+      tags: [Assessments]
+      summary: Publish report cards for a class stream
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishReportCardRequest'
+      responses:
+        '200':
+          description: Report card generation queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/report-cards/students/{studentId}:
+    get:
+      tags: [Assessments]
+      summary: Get report cards for a student
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of report cards
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Finance ────────────────────────────────────────────────────────
+  /api/v1/finance/fee-structures:
+    post:
+      tags: [Finance]
+      summary: Create a fee structure
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFeeStructureRequest'
+      responses:
+        '200':
+          description: Created fee structure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/finance/invoices:
+    post:
+      tags: [Finance]
+      summary: Create a student invoice
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInvoiceRequest'
+      responses:
+        '200':
+          description: Created invoice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/finance/payments:
+    post:
+      tags: [Finance]
+      summary: Record a payment
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+      responses:
+        '200':
+          description: Recorded payment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/finance/ledger/students/{studentId}:
+    get:
+      tags: [Finance]
+      summary: Get student fee ledger
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Student ledger
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Timetable ──────────────────────────────────────────────────────
+  /api/v1/timetables:
+    post:
+      tags: [Timetable]
+      summary: Create a timetable
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTimetableRequest'
+      responses:
+        '200':
+          description: Created timetable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/timetable-slots:
+    post:
+      tags: [Timetable]
+      summary: Create a timetable slot
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTimetableSlotRequest'
+      responses:
+        '200':
+          description: Created timetable slot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Teachers ───────────────────────────────────────────────────────
+  /api/v1/teachers:
+    post:
+      tags: [Teachers]
+      summary: Create a teacher record
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTeacherRequest'
+      responses:
+        '200':
+          description: Created teacher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/teachers/{teacherId}:
+    get:
+      tags: [Teachers]
+      summary: Get a teacher by ID
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: teacherId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Teacher details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/teaching-allocations:
+    post:
+      tags: [Teachers]
+      summary: Create a teaching allocation
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTeachingAllocationRequest'
+      responses:
+        '200':
+          description: Created teaching allocation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── LMS ────────────────────────────────────────────────────────────
+  /api/v1/courses:
+    post:
+      tags: [LMS]
+      summary: Create an LMS course
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCourseRequest'
+      responses:
+        '200':
+          description: Created course
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/courses/{courseId}/assignments:
+    post:
+      tags: [LMS]
+      summary: Create a course assignment
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: courseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssignmentRequest'
+      responses:
+        '200':
+          description: Created assignment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/assignments/{assignmentId}/submissions:
+    post:
+      tags: [LMS]
+      summary: Submit a course assignment
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: assignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubmissionRequest'
+      responses:
+        '200':
+          description: Submission received
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Analytics ──────────────────────────────────────────────────────
+  /api/v1/analytics/schools/{schoolId}/overview:
+    get:
+      tags: [Analytics]
+      summary: Get school analytics overview
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: schoolId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: School analytics overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/analytics/students/{studentId}/risk:
+    get:
+      tags: [Analytics]
+      summary: Get student at-risk assessment
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Student risk assessment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Discipline ─────────────────────────────────────────────────────
+  /api/v1/discipline/incidents:
+    post:
+      tags: [Discipline]
+      summary: Report a discipline incident
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDisciplineIncidentRequest'
+      responses:
+        '200':
+          description: Created discipline incident
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/discipline/actions:
+    post:
+      tags: [Discipline]
+      summary: Record a discipline action
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDisciplineActionRequest'
+      responses:
+        '200':
+          description: Created discipline action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/discipline/students/{studentId}:
+    get:
+      tags: [Discipline]
+      summary: Get discipline history for a student
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Student discipline history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Health ─────────────────────────────────────────────────────────
+  /api/v1/health/students/{studentId}/records:
+    post:
+      tags: [Health]
+      summary: Create a student health record
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHealthRecordRequest'
+      responses:
+        '200':
+          description: Created health record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/health/clinic-visits:
+    post:
+      tags: [Health]
+      summary: Log a clinic visit
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClinicVisitRequest'
+      responses:
+        '200':
+          description: Clinic visit logged
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/health/students/{studentId}:
+    get:
+      tags: [Health]
+      summary: Get student health summary
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Student health summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Library ────────────────────────────────────────────────────────
+  /api/v1/library/books:
+    post:
+      tags: [Library]
+      summary: Add a library book
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLibraryBookRequest'
+      responses:
+        '200':
+          description: Created library book
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/library/loans:
+    post:
+      tags: [Library]
+      summary: Issue a book loan
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLibraryLoanRequest'
+      responses:
+        '200':
+          description: Book loan issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/library/returns/{loanId}:
+    post:
+      tags: [Library]
+      summary: Return a borrowed book
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: loanId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Book returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Transport ──────────────────────────────────────────────────────
+  /api/v1/transport/routes:
+    post:
+      tags: [Transport]
+      summary: Create a transport route
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransportRouteRequest'
+      responses:
+        '200':
+          description: Created transport route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/transport/assignments:
+    post:
+      tags: [Transport]
+      summary: Assign a student to a transport route
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransportAssignmentRequest'
+      responses:
+        '200':
+          description: Student assigned to route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/transport/routes/{routeId}/students:
+    get:
+      tags: [Transport]
+      summary: List students on a route
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: routeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Students on route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Boarding ───────────────────────────────────────────────────────
+  /api/v1/boarding/dormitories:
+    post:
+      tags: [Boarding]
+      summary: Create a dormitory
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDormitoryRequest'
+      responses:
+        '200':
+          description: Created dormitory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/boarding/allocations:
+    post:
+      tags: [Boarding]
+      summary: Allocate a student to a dormitory
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBoardingAllocationRequest'
+      responses:
+        '200':
+          description: Student allocated to dormitory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/boarding/dormitories/{dormId}/occupants:
+    get:
+      tags: [Boarding]
+      summary: List occupants of a dormitory
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: dormId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Dormitory occupants
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  # ─── Parent Portal ──────────────────────────────────────────────────
+  /api/v1/parent/students:
+    get:
+      tags: [Parent Portal]
+      summary: List students linked to the authenticated parent
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+      responses:
+        '200':
+          description: Parent's students
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/parent/students/{studentId}/dashboard:
+    get:
+      tags: [Parent Portal]
+      summary: Get student dashboard for parent view
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Student dashboard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /api/v1/parent/students/{studentId}/report-cards:
+    get:
+      tags: [Parent Portal]
+      summary: Get report cards for a student (parent view)
+      parameters:
+        - $ref: '#/components/parameters/TenantHeader'
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Student report cards
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    TenantHeader:
+      name: X-Tenant-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Tenant UUID for multi-tenant routing
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        data:
+          type: object
+        meta:
+          type: object
+          properties:
+            request_id:
+              type: string
+              format: uuid
+            version:
+              type: string
+        errors:
+          type: array
+          items:
+            type: object
+
+    # ─── CBC ──────────────────────────────────────────────────────────
+    CreateLearningAreaRequest:
+      type: object
+      required: [school_id, code, name, grade_band]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        name:
+          type: string
+        grade_band:
+          type: string
+          enum: [LOWER_PRIMARY, UPPER_PRIMARY, JSS, SS]
+
+    CreateStrandRequest:
+      type: object
+      required: [learning_area_id, code, name]
+      properties:
+        learning_area_id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        name:
+          type: string
+
+    CreateSubStrandRequest:
+      type: object
+      required: [strand_id, code, name]
+      properties:
+        strand_id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        name:
+          type: string
+
+    CreateLearningOutcomeRequest:
+      type: object
+      required: [sub_strand_id, code, description]
+      properties:
+        sub_strand_id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        description:
+          type: string
+
+    CreateCompetencyRequest:
+      type: object
+      required: [school_id, name, code]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        code:
+          type: string
+        description:
+          type: string
+
+    # ─── Assessments ──────────────────────────────────────────────────
+    CreateAssessmentPlanRequest:
+      type: object
+      required: [school_id, term_id, class_stream_id, name]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        term_id:
+          type: string
+          format: uuid
+        class_stream_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+
+    CreateAssessmentActivityRequest:
+      type: object
+      required: [assessment_plan_id, subject_id, title, activity_type]
+      properties:
+        assessment_plan_id:
+          type: string
+          format: uuid
+        subject_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        activity_type:
+          type: string
+          enum: [observation, oral, written, practical, portfolio]
+        max_score:
+          type: number
+        due_at:
+          type: string
+          format: date
+
+    CreateAssessmentScoreRequest:
+      type: object
+      required: [activity_id, student_id, performance_level]
+      properties:
+        activity_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        score:
+          type: number
+        performance_level:
+          type: string
+          enum: [BE, AE, ME, EE]
+        teacher_comment:
+          type: string
+
+    PublishReportCardRequest:
+      type: object
+      required: [school_id, class_stream_id, term_id]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        class_stream_id:
+          type: string
+          format: uuid
+        term_id:
+          type: string
+          format: uuid
+
+    # ─── Finance ──────────────────────────────────────────────────────
+    CreateFeeStructureRequest:
+      type: object
+      required: [school_id, academic_year_id, grade_code, fee_category, amount]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        academic_year_id:
+          type: string
+          format: uuid
+        term_id:
+          type: string
+          format: uuid
+        grade_code:
+          type: string
+        fee_category:
+          type: string
+        amount:
+          type: number
+        due_date:
+          type: string
+          format: date
+
+    CreateInvoiceRequest:
+      type: object
+      required: [school_id, student_id, term_id, invoice_date]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        term_id:
+          type: string
+          format: uuid
+        invoice_date:
+          type: string
+          format: date
+        due_date:
+          type: string
+          format: date
+        line_items:
+          type: array
+          items:
+            type: object
+
+    CreatePaymentRequest:
+      type: object
+      required: [school_id, student_id, amount, payment_method]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        invoice_id:
+          type: string
+          format: uuid
+        amount:
+          type: number
+        payment_method:
+          type: string
+          enum: [mpesa, bank, cash, card]
+        transaction_reference:
+          type: string
+        paid_at:
+          type: string
+          format: date
+
+    # ─── Timetable ────────────────────────────────────────────────────
+    CreateTimetableRequest:
+      type: object
+      required: [school_id, academic_year_id, name]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        academic_year_id:
+          type: string
+          format: uuid
+        term_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+
+    CreateTimetableSlotRequest:
+      type: object
+      required: [timetable_id, class_stream_id, subject_id, day_of_week, start_time, end_time]
+      properties:
+        timetable_id:
+          type: string
+          format: uuid
+        class_stream_id:
+          type: string
+          format: uuid
+        subject_id:
+          type: string
+          format: uuid
+        teacher_id:
+          type: string
+          format: uuid
+        day_of_week:
+          type: integer
+          minimum: 1
+          maximum: 5
+        start_time:
+          type: string
+          example: "08:00"
+        end_time:
+          type: string
+          example: "09:00"
+        room:
+          type: string
+
+    # ─── Teachers ─────────────────────────────────────────────────────
+    CreateTeacherRequest:
+      type: object
+      required: [school_id, first_name, last_name]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        tsc_number:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        hire_date:
+          type: string
+          format: date
+
+    CreateTeachingAllocationRequest:
+      type: object
+      required: [school_id, academic_year_id, teacher_id, class_stream_id, subject_id]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        academic_year_id:
+          type: string
+          format: uuid
+        term_id:
+          type: string
+          format: uuid
+        teacher_id:
+          type: string
+          format: uuid
+        class_stream_id:
+          type: string
+          format: uuid
+        subject_id:
+          type: string
+          format: uuid
+
+    # ─── LMS ──────────────────────────────────────────────────────────
+    CreateCourseRequest:
+      type: object
+      required: [school_id, class_stream_id, subject_id, teacher_id, title]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        class_stream_id:
+          type: string
+          format: uuid
+        subject_id:
+          type: string
+          format: uuid
+        teacher_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+
+    CreateAssignmentRequest:
+      type: object
+      required: [course_id, title]
+      properties:
+        course_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        instructions:
+          type: string
+        due_at:
+          type: string
+          format: date-time
+        max_score:
+          type: number
+
+    CreateSubmissionRequest:
+      type: object
+      required: [student_id]
+      properties:
+        student_id:
+          type: string
+          format: uuid
+        content:
+          type: string
+        file_url:
+          type: string
+          format: uri
+
+    # ─── Discipline ───────────────────────────────────────────────────
+    CreateDisciplineIncidentRequest:
+      type: object
+      required: [school_id, student_id, incident_date, incident_type]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        incident_date:
+          type: string
+          format: date
+        incident_type:
+          type: string
+        severity:
+          type: string
+          enum: [low, medium, high, critical]
+        description:
+          type: string
+
+    CreateDisciplineActionRequest:
+      type: object
+      required: [incident_id, action_type, action_date]
+      properties:
+        incident_id:
+          type: string
+          format: uuid
+        action_type:
+          type: string
+        action_details:
+          type: string
+        action_date:
+          type: string
+          format: date
+
+    # ─── Health ───────────────────────────────────────────────────────
+    CreateHealthRecordRequest:
+      type: object
+      required: [school_id]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        blood_group:
+          type: string
+        allergies:
+          type: string
+        chronic_conditions:
+          type: string
+        emergency_contact_name:
+          type: string
+        emergency_contact_phone:
+          type: string
+
+    CreateClinicVisitRequest:
+      type: object
+      required: [school_id, student_id, visit_at]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        visit_at:
+          type: string
+          format: date-time
+        complaint:
+          type: string
+        diagnosis:
+          type: string
+        treatment:
+          type: string
+
+    # ─── Library ──────────────────────────────────────────────────────
+    CreateLibraryBookRequest:
+      type: object
+      required: [school_id, title]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        isbn:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        subject:
+          type: string
+        copy_count:
+          type: integer
+          default: 1
+
+    CreateLibraryLoanRequest:
+      type: object
+      required: [school_id, book_id, student_id, due_date]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        book_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        due_date:
+          type: string
+          format: date
+
+    # ─── Transport ────────────────────────────────────────────────────
+    CreateTransportRouteRequest:
+      type: object
+      required: [school_id, route_code, route_name]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        route_code:
+          type: string
+        route_name:
+          type: string
+        description:
+          type: string
+
+    CreateTransportAssignmentRequest:
+      type: object
+      required: [school_id, route_id, student_id]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        route_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        pickup_point:
+          type: string
+
+    # ─── Boarding ─────────────────────────────────────────────────────
+    CreateDormitoryRequest:
+      type: object
+      required: [school_id, dorm_code, dorm_name, capacity]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        dorm_code:
+          type: string
+        dorm_name:
+          type: string
+        capacity:
+          type: integer
+        gender:
+          type: string
+          enum: [male, female, mixed]
+
+    CreateBoardingAllocationRequest:
+      type: object
+      required: [school_id, dormitory_id, student_id, academic_year_id]
+      properties:
+        school_id:
+          type: string
+          format: uuid
+        dormitory_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        academic_year_id:
+          type: string
+          format: uuid
+        bed_number:
+          type: string

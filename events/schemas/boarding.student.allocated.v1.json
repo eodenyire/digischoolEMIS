@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "boarding.student.allocated.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "payload"],
+  "properties": {
+    "event_id": { "type": "string", "format": "uuid" },
+    "event_type": { "type": "string", "const": "boarding.student.allocated.v1" },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "tenant_id": { "type": "string", "format": "uuid" },
+    "school_id": { "type": "string", "format": "uuid" },
+    "actor": { "type": "object", "properties": { "user_id": { "type": "string", "format": "uuid" }, "role": { "type": "string" } }, "required": ["user_id", "role"] },
+    "trace": { "type": "object", "properties": { "request_id": { "type": "string", "format": "uuid" }, "correlation_id": { "type": "string", "format": "uuid" } }, "required": ["request_id"] },
+    "payload": {
+      "type": "object",
+      "required": ["allocation_id", "dormitory_id", "student_id", "academic_year_id"],
+      "properties": {
+        "allocation_id": { "type": "string", "format": "uuid" },
+        "dormitory_id": { "type": "string", "format": "uuid" },
+        "student_id": { "type": "string", "format": "uuid" },
+        "academic_year_id": { "type": "string", "format": "uuid" },
+        "bed_number": { "type": "string" }
+      }
+    }
+  }
+}
