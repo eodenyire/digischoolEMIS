@@ -31,6 +31,11 @@ DigiSchool EMIS is modeled after global platforms like **PowerSchool**, **Infini
 - [Database Migration Script](scripts/db-migrate.sh)
 - [Contract Validation Workflow](.github/workflows/contract-validation.yml)
 
+## Screenshots
+
+UI and API screenshots of the running system are stored in the [`screenshots/`](screenshots/) folder.  
+See [`screenshots/README.md`](screenshots/README.md) for the naming convention and how to add new screenshots.
+
 ## Validation
 
 ```bash
