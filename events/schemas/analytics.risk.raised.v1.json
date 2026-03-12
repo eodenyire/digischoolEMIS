@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "analytics.risk.raised.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "payload"],
+  "properties": {
+    "event_id": { "type": "string", "format": "uuid" },
+    "event_type": { "type": "string", "const": "analytics.risk.raised.v1" },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "tenant_id": { "type": "string", "format": "uuid" },
+    "school_id": { "type": "string", "format": "uuid" },
+    "actor": { "type": "object", "properties": { "user_id": { "type": "string", "format": "uuid" }, "role": { "type": "string" } }, "required": ["user_id", "role"] },
+    "trace": { "type": "object", "properties": { "request_id": { "type": "string", "format": "uuid" }, "correlation_id": { "type": "string", "format": "uuid" } }, "required": ["request_id"] },
+    "payload": {
+      "type": "object",
+      "required": ["student_id", "risk_score", "risk_level", "risk_factors"],
+      "properties": {
+        "student_id": { "type": "string", "format": "uuid" },
+        "risk_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "risk_level": { "type": "string", "enum": ["low", "medium", "high"] },
+        "risk_factors": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

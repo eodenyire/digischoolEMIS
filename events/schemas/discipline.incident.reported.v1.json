@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "discipline.incident.reported.v1",
+  "type": "object",
+  "required": ["event_id", "event_type", "occurred_at", "tenant_id", "school_id", "actor", "trace", "payload"],
+  "properties": {
+    "event_id": { "type": "string", "format": "uuid" },
+    "event_type": { "type": "string", "const": "discipline.incident.reported.v1" },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "tenant_id": { "type": "string", "format": "uuid" },
+    "school_id": { "type": "string", "format": "uuid" },
+    "actor": { "type": "object", "properties": { "user_id": { "type": "string", "format": "uuid" }, "role": { "type": "string" } }, "required": ["user_id", "role"] },
+    "trace": { "type": "object", "properties": { "request_id": { "type": "string", "format": "uuid" }, "correlation_id": { "type": "string", "format": "uuid" } }, "required": ["request_id"] },
+    "payload": {
+      "type": "object",
+      "required": ["incident_id", "student_id", "incident_type", "severity"],
+      "properties": {
+        "incident_id": { "type": "string", "format": "uuid" },
+        "student_id": { "type": "string", "format": "uuid" },
+        "incident_type": { "type": "string" },
+        "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] }
+      }
+    }
+  }
+}
