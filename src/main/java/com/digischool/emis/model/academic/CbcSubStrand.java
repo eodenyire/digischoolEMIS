@@ -11,7 +11,9 @@ public class CbcSubStrand extends BaseEntity {
     private Long strandId;
     private String name;
     private String code;
+    private String subStrandCode;
     private String description;
+    private boolean active;
 
     public CbcSubStrand() {}
 
@@ -25,6 +27,12 @@ public class CbcSubStrand extends BaseEntity {
     public String getCode() { return code; }
     public void setCode(String code) { this.code = code; }
 
+    public String getSubStrandCode() { return subStrandCode; }
+    public void setSubStrandCode(String subStrandCode) { this.subStrandCode = subStrandCode; }
+
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }

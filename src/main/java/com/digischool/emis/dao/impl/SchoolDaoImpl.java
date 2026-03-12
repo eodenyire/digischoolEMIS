@@ -7,7 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 public class SchoolDaoImpl implements SchoolDao {
 
@@ -31,7 +34,7 @@ public class SchoolDaoImpl implements SchoolDao {
             ps.setString(i++, s.getPhysicalAddress()); ps.setString(i++, s.getPostalAddress());
             ps.setString(i++, s.getEmail()); ps.setString(i++, s.getPhone());
             ps.setString(i++, s.getPrincipalName());
-            if (s.getEstablishedYear() != null) ps.setInt(i++, s.getEstablishedYear()); else ps.setNull(i++, Types.INTEGER);
+            if (s.getEstablishedYear() != 0) ps.setInt(i++, s.getEstablishedYear()); else ps.setNull(i++, Types.INTEGER);
             ps.setBoolean(i++, s.isBoarding()); ps.setString(i++, s.getMotto());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) s.setId(rs.getLong("id"));
@@ -139,7 +142,7 @@ public class SchoolDaoImpl implements SchoolDao {
             s.setLong(3, sc.getAcademicYearId());
             if (sc.getClassTeacherId() != null) s.setLong(4, sc.getClassTeacherId()); else s.setNull(4, Types.BIGINT);
             s.setString(5, sc.getClassName()); s.setString(6, sc.getStream());
-            if (sc.getCapacity() != null) s.setInt(7, sc.getCapacity()); else s.setNull(7, Types.INTEGER);
+            if (sc.getCapacity() != 0) s.setInt(7, sc.getCapacity()); else s.setNull(7, Types.INTEGER);
             s.setBoolean(8, sc.isActive());
             ResultSet rs = s.executeQuery();
             if (rs.next()) sc.setId(rs.getLong("id"));
